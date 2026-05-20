@@ -1,7 +1,9 @@
 FROM amazonlinux:2023
 RUN yum update -y
-RUN yum install httpd -y
-COPY ./web-consulting-website-main/* /var/www/html
+RUN yum install httpd git unzip wget -y
+RUN wget https://github.com/EVT98/web-consulting-website/archive/refs/heads/main.zip
+RUN unzip main.zip
+RUN cp web-consulting-website-main/* /var/www/html
 EXPOSE 80
-CMD ["apachectl",  "-D", "FOREGROUND"]
+CMD ["httpd",  "-D", "FOREGROUND"]
 
